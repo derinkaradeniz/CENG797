@@ -1,8 +1,9 @@
-from ...Generics import Event, EventTypes
-from .GenericMAC import GenericMac, GenericMacEventTypes
+#from ...Generics import Event, EventTypes
+#from .GenericMAC import GenericMac, GenericMacEventTypes
 import time, random, math
 
-from adhoccomputing.Networking.MacProtocol.GenericMAC import GenericMac
+from adhoccomputing.Generics import Event, EventTypes
+from adhoccomputing.Networking.MacProtocol.GenericMAC import GenericMac, GenericMacEventTypes
 
 
 class ComponentConfigurationParameters():
