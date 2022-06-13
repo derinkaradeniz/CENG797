@@ -53,5 +53,5 @@ class CsmaPlain(GenericMac):
         else:
             #print("Queue size", self.framequeue.qsize())
             pass
-        #time.sleep(0.00001) # TODO: Think about this otherwise we will only do cca
+        time.sleep(0.00001) # TODO: Think about this otherwise we will only do cca
         self.send_self(Event(self, GenericMacEventTypes.HANDLEMACFRAME, None)) #Continuously trigger handle_frame
