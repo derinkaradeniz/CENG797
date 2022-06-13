@@ -59,10 +59,11 @@ class UsrpApplicationLayer(GenericModel):
         self.send_down(evt)  # PINGPONG
     
     def on_startbroadcast(self, eventobj: Event):
-        if self.componentinstancenumber == 1:
-            hdr = ApplicationLayerMessageHeader(ApplicationLayerMessageTypes.BROADCAST, 1, 0)
-        else:
-            hdr = ApplicationLayerMessageHeader(ApplicationLayerMessageTypes.BROADCAST, 0, 1)
+        #if self.componentinstancenumber == 1:
+        #   hdr = ApplicationLayerMessageHeader(ApplicationLayerMessageTypes.BROADCAST, 1, 0)
+        #else:
+        #    hdr = ApplicationLayerMessageHeader(ApplicationLayerMessageTypes.BROADCAST, 0, 1)
+        hdr = ApplicationLayerMessageHeader(ApplicationLayerMessageTypes.BROADCAST, self.componentinstancenumber, 1)
         self.counter = self.counter + 1
         
         payload = "BMSG-" + str(self.counter)
