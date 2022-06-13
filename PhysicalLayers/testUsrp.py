@@ -5,7 +5,7 @@ from enum import Enum
 from pickle import FALSE
 
 
-from csmaPlain import CsmaPlain, MacCsmaPPersistentConfigurationParameters
+from .csmaPlain import CsmaPlain, MacCsmaPPersistentConfigurationParameters
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import Event, EventTypes, ConnectorTypes, GenericMessageHeader,GenericMessage
 from adhoccomputing.Experimentation.Topology import Topology
