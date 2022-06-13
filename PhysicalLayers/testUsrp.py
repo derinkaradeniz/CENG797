@@ -83,7 +83,7 @@ class UsrpNode(GenericModel):
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
         # SUBCOMPONENTS
         
-        macconfig = MacCsmaPPersistentConfigurationParameters(0.5)
+        macconfig = MacCsmaPPersistentConfigurationParameters(0.05)
         
         self.appl = UsrpApplicationLayer("UsrpApplicationLayer", componentinstancenumber, topology=topology)
         self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology)
@@ -122,7 +122,7 @@ def main():
     topo.start()
     i = 0
     while(i < 20):
-        topo.nodes[2].appl.send_self(Event(topo.nodes[3], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
+        topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
         time.sleep(1)
         i = i + 1
 
