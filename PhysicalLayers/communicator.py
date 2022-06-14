@@ -56,7 +56,7 @@ class CommunicatorApp(GenericModel):
 
 
     def on_startgpsreq(self, eventobj: Event):
-        hdr = CommunicatorAppMessageTypes(GPSHandlerAppMessageTypes.ISLOCATION, self.componentinstancenumber, self.componentinstancenumber)     
+        hdr = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISLOCATION, self.componentinstancenumber, self.componentinstancenumber)     
         payload = "location request"
         message = GenericMessage(hdr, payload)
         evt = Event(self, EventTypes.MFRP, message)
