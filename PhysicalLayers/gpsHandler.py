@@ -38,20 +38,20 @@ class GPSHandlerApp(GenericModel):
     def on_message_from_peer(self, eventobj: Event):
         #evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
         #hesaplama yap
-        if eventobj.eventcontent.hdr.messagetype == "ISLOCATION":  
-            hdr = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.hdr.messagefrom)     
+        if eventobj.eventcontent.header.messagetype == "ISLOCATION":  
+            header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = self.myLocation
-            message = GenericMessage(hdr, payload)
+            message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message)
             self.send_peer(evt)
 
-        elif eventobj.eventcontent.hdr.messagetype == "ISDISTANCE":
+        elif eventobj.eventcontent.header.messagetype == "ISDISTANCE":
             nodeLocation = eventobj.eventContent.payload
             distance = sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
 
-            hdr = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.DISTANCE, self.componentinstancenumber, eventobj.eventcontent.hdr.messagefrom)     
+            header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.DISTANCE, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = distance
-            message = GenericMessage(hdr, payload)
+            message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message) 
             self.send_peer(evt)
-            logger.applog(f"{self.componentname}.{self.componentinstancenumber}: My distance from {eventobj.eventcontent.hdr.messagefrom} is {str(distance)}")
+            logger.applog(f"{self.componentname}.{self.componentinstancenumber}: My distance from {eventobj.eventcontent.header.messagefrom} is {str(distance)}")
