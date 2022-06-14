@@ -5,13 +5,11 @@ from enum import Enum
 from pickle import FALSE
 
 
-from csmaPlain import CsmaPlain, MacCsmaPPersistentConfigurationParameters
+from csmaPlain import CsmaPlain, MacCsmaPPersistentConfigurationParameters, CsmaPlain
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import Event, EventTypes, ConnectorTypes, GenericMessageHeader,GenericMessage
 from adhoccomputing.Experimentation.Topology import Topology
 from adhoccomputing.Networking.PhysicalLayer.UsrpB210OfdmFlexFramePhy import  UsrpB210OfdmFlexFramePhy
-
-from adhoccomputing.Networking.ApplicationLayer.OpenCVVideoStreamingApp import  OpenCVVideoStreamingApp, OpenCVVideoStreamingAppConfig
 #from adhoccomputing.Networking.MacProtocol.CSMA import MacCsmaPPersistent, MacCsmaPPersistentConfigurationParameters
 
 #registry = ComponentRegistry()
@@ -32,24 +30,18 @@ class ApplicationLayerMessageHeader(GenericMessageHeader):
     pass
 
 
-class VideoStreamingApplicationLayerEventTypes(Enum):
+class UsrpApplicationLayerEventTypes(Enum):
     STARTBROADCAST = "startbroadcast"
     STARTSTREAMING = "startstreaming"
 
-class VideoStreamingAppConfig(OpenCVVideoStreamingAppConfig):
-    def __init__(self, framerate):
-        self.framerate = framerate
 
-
-class VideoStreamingApplicationLayer(OpenCVVideoStreamingApp):
-    
-
+class UsrpApplicationLayer(GenericModel):
     def on_init(self, eventobj: Event):
         self.counter = 0
     
     def __init__(self, componentname, componentinstancenumber, context=None, configurationparameters=None, num_worker_threads=1, topology=None):
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
-        self.eventhandlers[VideoStreamingApplicationLayerEventTypes.STARTBROADCAST] = self.on_startbroadcast
+        self.eventhandlers[UsrpApplicationLayerEventTypes.STARTBROADCAST] = self.on_startbroadcast
 
     def on_message_from_top(self, eventobj: Event):
     # print(f"I am {self.componentname}.{self.componentinstancenumber},sending down eventcontent={eventobj.eventcontent}\n")
@@ -95,7 +87,7 @@ class UsrpNode(GenericModel):
         
         macconfig = MacCsmaPPersistentConfigurationParameters(0.05)
         
-        self.appl = VideoStreamingApplicationLayer("VideoStreamingApplicationLayer", componentinstancenumber, topology=topology)
+        self.appl = UsrpApplicationLayer("UsrpApplicationLayer", componentinstancenumber, topology=topology)
         self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology)
         self.mac = CsmaPlain("MacCsmaPPersistent", componentinstancenumber,  configurationparameters=macconfig, uhd=self.phy.sdrdev,topology=topology)
         
@@ -132,7 +124,7 @@ def main():
     topo.start()
     i = 0
     while(i < 20):
-        topo.nodes[3].appl.send_self(Event(topo.nodes[0], VideoStreamingApplicationLayerEventTypes.STARTBROADCAST, None))
+        topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
         time.sleep(1)
         i = i + 1
 
