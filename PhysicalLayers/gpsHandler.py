@@ -47,8 +47,8 @@ class GPSHandlerApp(GenericModel):
         print("gps: from peer")
         #evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
         #hesaplama yap
-        print(f"gps: from peer message type: expected {CommunicatorAppMessageTypes.ISLOCATION}")
-        print(f"gps: from peer message type: {eventobj.eventcontent.header.messagetype}")
+        print(f"gps: from peer message type: expected {CommunicatorAppMessageTypes.ISLOCATION.type()}")
+        print(f"gps: from peer message type: {eventobj.eventcontent.header.messagetype.type()}")
         if eventobj.eventcontent.header.messagetype == "CommunicatorAppMessageTypes.ISLOCATION": 
             print("gps: from peer: islocation") 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
