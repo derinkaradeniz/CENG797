@@ -38,14 +38,14 @@ class GPSHandlerApp(GenericModel):
     def on_message_from_peer(self, eventobj: Event):
         #evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
         #hesaplama yap
-        if eventobj.eventContent.hdr.messagetype == "ISLOCATION":  
+        if eventobj.eventcontent.hdr.messagetype == "ISLOCATION":  
             hdr = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.hdr.messagefrom)     
             payload = self.myLocation
             message = GenericMessage(hdr, payload)
             evt = Event(self, EventTypes.MFRP, message)
             self.send_peer(evt)
 
-        elif eventobj.eventContent.hdr.messagetype == "ISDISTANCE":
+        elif eventobj.eventcontent.hdr.messagetype == "ISDISTANCE":
             nodeLocation = eventobj.eventContent.payload
             distance = sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
 
