@@ -29,11 +29,11 @@ class AdHocNode(GenericModel):
         pass
 
     def on_message_from_top(self, eventobj: Event):
-        print("main: from top")
+        #print("main: from top")
         self.send_down(eventobj)
 
     def on_message_from_bottom(self, eventobj: Event):
-        print("main: from bottom")
+        #print("main: from bottom")
         self.send_up(eventobj)
 
     def __init__(self, componentname, componentinstancenumber, context=None, configurationparameters=None, num_worker_threads=1, topology=None):
