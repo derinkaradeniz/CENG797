@@ -29,12 +29,15 @@ class AdHocNode(GenericModel):
         pass
 
     def on_message_from_top(self, eventobj: Event):
+        logger.applog("main: from top")
         self.send_down(eventobj)
 
     def on_message_from_bottom(self, eventobj: Event):
+        logger.applog("main: from bottom")
         self.send_up(eventobj)
 
     def __init__(self, componentname, componentinstancenumber, context=None, configurationparameters=None, num_worker_threads=1, topology=None):
+        logger.applog("main: init")
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
         # SUBCOMPONENTS
         
@@ -72,6 +75,7 @@ class AdHocNode(GenericModel):
         
 
 def main():
+    logger.applog("main")
     topo = Topology()
 # Note that the topology has to specific: usrp winslab_b210_0 is run by instance 0 of the component
 # Therefore, the usrps have to have names winslab_b210_x where x \in (0 to nodecount-1)
