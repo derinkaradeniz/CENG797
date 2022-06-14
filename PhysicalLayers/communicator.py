@@ -61,7 +61,7 @@ class CommunicatorApp(GenericModel):
             print("comm: from peer: distance")
             distance = eventobj.eventcontent.payload
             print(f"Distance at comm: {str(distance)}")
-            if distance < 200:
+            if distance < 50:
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
                 payload = loremIpsum
                 message = GenericMessage(header, payload) 
