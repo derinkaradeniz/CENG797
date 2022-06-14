@@ -3,21 +3,21 @@ import random
 
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
-#from gpsHandler import GPSHandlerAppMessageTypes
+from gpsHandler import GPSHandlerAppMessageTypes, CommunicatorAppMessageTypes
 import pickle
 
 from lorem import *
 
-class GPSHandlerAppMessageTypes(Enum):
-    LOCATION = "LOCATION"
-    DISTANCE = "DISTANCE"
+#class GPSHandlerAppMessageTypes(Enum):
+#    LOCATION = "LOCATION"
+#    DISTANCE = "DISTANCE"
 
 # define your own message types
-class CommunicatorAppMessageTypes(Enum):
-    LOCATION = "LOCATION"
-    ISLOCATION = "ISLOCATION"
-    ISDISTANCE = "ISDISTANCE"
-    TEXTMESSAGE = "TEXTMESSAGE"
+#class CommunicatorAppMessageTypes(Enum):
+#    LOCATION = "LOCATION"
+#    ISLOCATION = "ISLOCATION"
+#    ISDISTANCE = "ISDISTANCE"
+#    TEXTMESSAGE = "TEXTMESSAGE"
 
 # define your own message header structure
 class CommunicatorAppMessageHeader(GenericMessageHeader):
@@ -49,12 +49,14 @@ class CommunicatorApp(GenericModel):
     def on_message_from_peer(self, eventobj: Event):        
         print("comm: from peer")
         if eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.LOCATION:
+            print("comm: from peer: location")
             header = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messageto)     
             payload = eventobj.eventcontent.payload
             message = GenericMessage(header, payload) 
             evt = Event(self, EventTypes.MFRT, message)
             self.send_down(evt)
         elif eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.DISTANCE:
+            print("comm: from peer: distance")
             distance = eventobj.eventcontent.payload
             if payload < 10:
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
