@@ -26,9 +26,11 @@ class GPSHandlerAppEventTypes(Enum):
 class GPSHandlerApp(GenericModel):
     myLocation = [0]*2
     def on_init(self, eventobj: Event):
+        logger.applog("gps: on init")
         self.counter = 0       
     
     def __init__(self, componentname, componentinstancenumber, context=None, configurationparameters=None, num_worker_threads=1, topology=None):
+        logger.applog("gps: init")
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
 
         self.myLocation[0] = random.random() * 360 - 180
@@ -36,9 +38,11 @@ class GPSHandlerApp(GenericModel):
         logger.applog(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
 
     def on_message_from_peer(self, eventobj: Event):
+        logger.applog("gps: from peer")
         #evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
         #hesaplama yap
-        if eventobj.eventcontent.header.messagetype == "ISLOCATION":  
+        if eventobj.eventcontent.header.messagetype == "ISLOCATION": 
+            logger.applog("gps: from peer: islocation") 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = self.myLocation
             message = GenericMessage(header, payload)
@@ -46,6 +50,7 @@ class GPSHandlerApp(GenericModel):
             self.send_peer(evt)
 
         elif eventobj.eventcontent.header.messagetype == "ISDISTANCE":
+            logger.applog("gps: from peer: isdistance")
             nodeLocation = eventobj.eventContent.payload
             distance = sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
 
