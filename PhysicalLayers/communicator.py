@@ -30,7 +30,7 @@ class CommunicatorApp(GenericModel):
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
         self.eventhandlers[CommunicatorAppEventTypes.STARTGPSREQ] = self.on_startgpsreq
 
-     def on_message_from_bottom(self, eventobj: Event):
+    def on_message_from_bottom(self, eventobj: Event):
         if eventobj.eventcontent.hdr.messagetype == "LOCATION"
             hdr = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.ISDISTANCE, eventobj.eventcontent.hdr.messagefrom, eventobj.eventcontent.hdr.messageto)     
             payload = eventobj.eventcontent.payload
