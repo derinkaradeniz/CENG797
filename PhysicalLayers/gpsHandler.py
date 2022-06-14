@@ -3,7 +3,7 @@ import random
 
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
-from communicator import GPSHandlerAppMessageTypes
+from communicator import CommunicatorAppMessageTypes
 import pickle
 
 #class CommunicatorAppMessageTypes(Enum):
