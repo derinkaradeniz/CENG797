@@ -66,12 +66,13 @@ class GPSHandlerApp(GenericModel):
             nodeLocation = eventobj.eventcontent.payload
             print(f"Node location {eventobj.eventcontent.header.messagefrom}: {nodeLocation} ")
             distance = math.sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
+            print(f"Distance: {distance}")
 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.DISTANCE, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = distance
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message) 
             self.send_peer(evt)
-            print(f"{self.componentname}.{self.componentinstancenumber}: My distance from {eventobj.eventcontent.header.messagefrom} is {str(distance)}")
+            print(f"{self.componentname}.{self.componentinstancenumber}: My distance from {eventobj.eventcontent.header.messagefrom} is {distance}")
         else:
             print("gps: from peer: nothing")
