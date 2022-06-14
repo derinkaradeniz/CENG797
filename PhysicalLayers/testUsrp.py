@@ -22,6 +22,7 @@ from adhoccomputing.Networking.PhysicalLayer.UsrpB210OfdmFlexFramePhy import  Us
 # define your own message types
 class ApplicationLayerMessageTypes(Enum):
     BROADCAST = "BROADCAST"
+    VIDEO = "VIDEO"
 
 
 # define your own message header structure
@@ -31,6 +32,7 @@ class ApplicationLayerMessageHeader(GenericMessageHeader):
 
 class UsrpApplicationLayerEventTypes(Enum):
     STARTBROADCAST = "startbroadcast"
+    STARTSTREAMING = "startstreaming"
 
 
 class UsrpApplicationLayer(GenericModel):
