@@ -52,7 +52,7 @@ class CommunicatorApp(GenericModel):
         print("comm: from peer")
         if eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.LOCATION:
             print("comm: from peer: location")
-            header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messageto)     
+            header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATION, self.componentinstancenumber, MessageDestinationIdentifiers.LINKLAYERBROADCAST)     
             payload = eventobj.eventcontent.payload
             message = GenericMessage(header, payload) 
             evt = Event(self, EventTypes.MFRT, message)
