@@ -8,7 +8,7 @@ import pickle
 class CommunicatorAppMessageTypes(Enum):
     LOCATION = "LOCATION"
     ISLOCATION = "ISLOCATION"
-    DISTANCE = "ISDISTANCE"
+    ISDISTANCE = "ISDISTANCE"
     TEXTMESSAGE = "TEXTMESSAGE"
 
 # define your own message types
