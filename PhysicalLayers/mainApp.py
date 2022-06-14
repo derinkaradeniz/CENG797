@@ -39,7 +39,7 @@ class AdHocNode(GenericModel):
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
         # SUBCOMPONENTS
         
-        self.gpsApp = = GPSHandlerApp("GPSHandlerApp", componentinstancenumber, topology=topology)
+        self.gpsApp = GPSHandlerApp("GPSHandlerApp", componentinstancenumber, topology=topology)
         self.appl = CommunicatorApp("CommunicatorApp", componentinstancenumber, topology=topology)
         self.seg = MessageSegmentation("MessageSegmentation", componentinstancenumber, topology=topology)
         self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology,usrpconfig=sdrconfig, )
