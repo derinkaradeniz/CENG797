@@ -60,7 +60,7 @@ class CommunicatorApp(GenericModel):
         elif eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.DISTANCE:
             print("comm: from peer: distance")
             distance = eventobj.eventcontent.payload
-            if distance < 50:
+            if distance < 200:
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
                 payload = loremIpsum
                 message = GenericMessage(header, payload) 
