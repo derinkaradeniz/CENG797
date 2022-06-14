@@ -40,7 +40,7 @@ class CommunicatorApp(GenericModel):
     def on_message_from_bottom(self, eventobj: Event):
         print("comm: from bottom")
         if eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.LOCATION:
-            header = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
+            header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
             payload = eventobj.eventcontent.payload
             message = GenericMessage(header, payload) 
             evt = Event(self, EventTypes.MFRP, message)
@@ -50,7 +50,7 @@ class CommunicatorApp(GenericModel):
         print("comm: from peer")
         if eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.LOCATION:
             print("comm: from peer: location")
-            header = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messageto)     
+            header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messageto)     
             payload = eventobj.eventcontent.payload
             message = GenericMessage(header, payload) 
             evt = Event(self, EventTypes.MFRT, message)
@@ -59,7 +59,7 @@ class CommunicatorApp(GenericModel):
             print("comm: from peer: distance")
             distance = eventobj.eventcontent.payload
             if payload < 10:
-                header = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
+                header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
                 payload = loremIpsum
                 message = GenericMessage(header, payload) 
                 evt = Event(self, EventTypes.MFRP, message)

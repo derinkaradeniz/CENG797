@@ -47,11 +47,11 @@ class GPSHandlerApp(GenericModel):
         print("gps: from peer")
         #evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
         #hesaplama yap
-        print(f"gps: from peer message type: expected {CommunicatorAppMessageTypes.ISLOCATION}")
         print(f"gps: from peer message type: {eventobj.eventcontent.header.messagetype}")
-        print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION}")
-        print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISLOCATION}")
-        print(f"gps: from peer message type compare {CommunicatorAppMessageTypes.ISLOCATION == CommunicatorAppMessageTypes.ISLOCATION }")
+        #print(f"gps: from peer message type: expected {CommunicatorAppMessageTypes.ISLOCATION}")
+        #print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION}")
+        #print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISLOCATION}")
+        #print(f"gps: from peer message type compare {CommunicatorAppMessageTypes.ISLOCATION == CommunicatorAppMessageTypes.ISLOCATION }")
 
         if eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION: 
             print("gps: from peer: islocation") 
