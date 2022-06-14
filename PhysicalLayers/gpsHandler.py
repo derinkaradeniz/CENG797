@@ -64,6 +64,7 @@ class GPSHandlerApp(GenericModel):
         elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISDISTANCE:
             print("gps: from peer: isdistance")
             nodeLocation = eventobj.eventcontent.payload
+            print(f"Node location {eventobj.eventcontent.header.messagefrom}: {nodeLocation} ")
             distance = math.sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.DISTANCE, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
