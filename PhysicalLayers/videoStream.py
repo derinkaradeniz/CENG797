@@ -43,7 +43,7 @@ class OpenCVVideoStreamingApp(GenericModel):
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
         self.eventhandlers[OpenCVVideoStreamingAppEventTypes.STARTSTREAMING] = self.on_startstreaming
         self.t = AHCTimer(1/self.framerate, self.send_frame)
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture("gandalf.mp4")
         #self.codec = 0x47504A4D  # MJPG
         self.cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter.fourcc('M','J','P','G'))
         #self.cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter.fourcc('H','2','6','5'))

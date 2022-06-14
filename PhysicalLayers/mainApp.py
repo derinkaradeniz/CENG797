@@ -4,7 +4,7 @@ import time, random, math
 from enum import Enum
 from pickle import FALSE
 
-
+from videoStream import OpenCVVideoStreamingApp, OpenCVVideoStreamingAppEventTypes
 from csmaPlain import CsmaPlain, MacCsmaPPersistentConfigurationParameters, CsmaPlain
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import Event, EventTypes, ConnectorTypes, GenericMessageHeader,GenericMessage
@@ -85,9 +85,11 @@ class UsrpNode(GenericModel):
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
         # SUBCOMPONENTS
         
-        macconfig = MacCsmaPPersistentConfigurationParameters(0.05)
+        macconfig = MacCsmaPPersistentConfigurationParameters(0.5)
         
-        self.appl = UsrpApplicationLayer("UsrpApplicationLayer", componentinstancenumber, topology=topology)
+        OpenCVVideoStreamingApp
+        #self.appl = UsrpApplicationLayer("UsrpApplicationLayer", componentinstancenumber, topology=topology)
+        self.appl = OpenCVVideoStreamingApp("OpenCVVideoStreamingApp", componentinstancenumber, topology=topology)
         self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology)
         self.mac = CsmaPlain("MacCsmaPPersistent", componentinstancenumber,  configurationparameters=macconfig, uhd=self.phy.sdrdev,topology=topology)
         
@@ -123,8 +125,10 @@ def main():
 
     topo.start()
     i = 0
-    while(i < 20):
-        topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
+    while(i < 3):
+        #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
+        topo.nodes[3].appl.send_self(Event(topo.nodes[0], OpenCVVideoStreamingAppEventTypes.STARTSTREAMING, None))
+
         time.sleep(1)
         i = i + 1
 
