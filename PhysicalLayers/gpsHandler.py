@@ -40,9 +40,9 @@ class GPSHandlerApp(GenericModel):
         print("gps: init")
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
 
-        self.myLocation[0] = random.random() * 360 - 180
-        self.myLocation[1] = random.random() * 180 - 90
-        print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
+        #self.myLocation[0] = random.random() * 360 - 180
+        #self.myLocation[1] = random.random() * 180 - 90
+        #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
 
     def on_message_from_peer(self, eventobj: Event):
         print("gps: from peer")
@@ -54,6 +54,9 @@ class GPSHandlerApp(GenericModel):
         #print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISLOCATION}")
         #print(f"gps: from peer message type compare {CommunicatorAppMessageTypes.ISLOCATION == CommunicatorAppMessageTypes.ISLOCATION }")
 
+        self.myLocation[0] = random.random() * 360 - 180
+        self.myLocation[1] = random.random() * 180 - 90
+        print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
         if eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION: 
             print("gps: from peer: islocation") 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
@@ -66,8 +69,8 @@ class GPSHandlerApp(GenericModel):
             nodeLocation = eventobj.eventcontent.payload
             print(f"Node location {eventobj.eventcontent.header.messagefrom}: {nodeLocation} ")
             distance = math.sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
-            print(f"My location: {self.myLocation[0]},{self.myLocation[1]}")
-            print(f"Node location: {nodeLocation[0]},{nodeLocation[1]}")
+            print(f"My location: {self.myLocation[0]},{self.myLocation[1]} ")
+            print(f"Node location: {nodeLocation[0]},{nodeLocation[1]} ")
 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.DISTANCE, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = distance
