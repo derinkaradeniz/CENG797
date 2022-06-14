@@ -65,7 +65,7 @@ class CommunicatorApp(GenericModel):
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
                 payload = loremIpsum
                 message = GenericMessage(header, payload) 
-                evt = Event(self, EventTypes.MFRP, message)
+                evt = Event(self, EventTypes.MFRT, message)
                 self.send_down(evt)
 
 
