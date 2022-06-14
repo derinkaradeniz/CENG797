@@ -51,7 +51,6 @@ class GPSHandlerApp(GenericModel):
         print(f"gps: from peer message type: {type(eventobj.eventcontent.header.messagetype)}")
         print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION}")
         print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISLOCATION}")
-        print(f"gps: from peer message type compare {CommunicatorAppMessageTypes.ISLOCATION == "ISLOCATION"}")
         print(f"gps: from peer message type compare {CommunicatorAppMessageTypes.ISLOCATION == CommunicatorAppMessageTypes.ISLOCATION }")
 
         if eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION: 
