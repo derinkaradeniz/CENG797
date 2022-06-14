@@ -1,5 +1,6 @@
 import time
 import random
+import math
 
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
