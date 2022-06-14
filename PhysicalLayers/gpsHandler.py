@@ -62,7 +62,7 @@ class GPSHandlerApp(GenericModel):
             self.send_peer(evt)
         elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISDISTANCE:
             print("gps: from peer: isdistance")
-            nodeLocation = eventobj.eventContent.payload
+            nodeLocation = eventobj.eventontent.payload
             distance = sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.DISTANCE, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
