@@ -31,7 +31,7 @@ class CommunicatorApp(GenericModel):
         self.eventhandlers[CommunicatorAppEventTypes.STARTGPSREQ] = self.on_startgpsreq
 
     def on_message_from_bottom(self, eventobj: Event):
-        if eventobj.eventcontent.hdr.messagetype == "LOCATION"
+        if eventobj.eventcontent.hdr.messagetype == "LOCATION":
             hdr = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.ISDISTANCE, eventobj.eventcontent.hdr.messagefrom, eventobj.eventcontent.hdr.messageto)     
             payload = eventobj.eventcontent.payload
             message = GenericMessage(hdr, payload) 
@@ -39,7 +39,7 @@ class CommunicatorApp(GenericModel):
             self.send_peer(evt)
 
     def on_message_from_peer(self, eventobj: Event):
-        if eventobj.eventcontent.hdr.messagetype == "LOCATION"
+        if eventobj.eventcontent.hdr.messagetype == "LOCATION":
             hdr = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.LOCATION, self.componentinstancenumber, eventobj.eventcontent.hdr.messageto)     
             payload = eventobj.eventcontent.payload
             message = GenericMessage(hdr, payload) 
