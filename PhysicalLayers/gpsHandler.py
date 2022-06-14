@@ -48,7 +48,7 @@ class GPSHandlerApp(GenericModel):
         print("gps: from peer")
         #evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
         #hesaplama yap
-        print(f"gps: from peer message type: {eventobj.eventcontent.header.messagetype}")
+        #print(f"gps: from peer message type: {eventobj.eventcontent.header.messagetype}")
         #print(f"gps: from peer message type: expected {CommunicatorAppMessageTypes.ISLOCATION}")
         #print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION}")
         #print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISLOCATION}")
@@ -56,7 +56,7 @@ class GPSHandlerApp(GenericModel):
 
         self.myLocation[0] = random.random() * 100 - 50
         self.myLocation[1] = random.random() * 100 - 50
-        print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
+        #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
         if eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION: 
             print("gps: from peer: islocation") 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
@@ -67,7 +67,7 @@ class GPSHandlerApp(GenericModel):
         elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISDISTANCE:
             print("gps: from peer: isdistance")
             nodeLocation = eventobj.eventcontent.payload
-            print(f"Node location {eventobj.eventcontent.header.messagefrom}: {nodeLocation} ")
+            #print(f"Node location {eventobj.eventcontent.header.messagefrom}: {nodeLocation} ")
             distance = math.sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
             print(f"My location: {self.myLocation[0]},{self.myLocation[1]} ")
             print(f"Node location: {nodeLocation[0]},{nodeLocation[1]} ")
@@ -77,6 +77,6 @@ class GPSHandlerApp(GenericModel):
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message) 
             self.send_peer(evt)
-            print(f"{self.componentname}.{self.componentinstancenumber}: My distance from {eventobj.eventcontent.header.messagefrom} is {distance}")
+            print(f"{self.componentname}.{self.componentinstancenumber}: My distance from {eventobj.eventcontent.header.messagefrom} is {str(distance)}")
         else:
             print("gps: from peer: nothing")
