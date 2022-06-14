@@ -1,8 +1,8 @@
 import time
 import random
 
-from ...Generics import *
-from ...GenericModel import GenericModel
+from adhoccomputing.GenericModel import GenericModel
+from adhoccomputing.Generics import *
 import pickle
 
 from lorem import *
