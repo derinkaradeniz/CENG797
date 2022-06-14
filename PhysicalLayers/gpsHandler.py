@@ -3,8 +3,13 @@ import random
 
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
-from communicator import CommunicatorAppMessageTypes
 import pickle
+
+class CommunicatorAppMessageTypes(Enum):
+    LOCATION = "LOCATION"
+    ISLOCATION = "ISLOCATION"
+    DISTANCE = "ISDISTANCE"
+    TEXTMESSAGE = "TEXTMESSAGE"
 
 # define your own message types
 class GPSHandlerAppMessageTypes(Enum):
