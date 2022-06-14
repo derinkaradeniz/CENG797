@@ -25,19 +25,19 @@ macconfig = MacCsmaPPersistentConfigurationParameters(0.5, -50)
 class AdHocNode(GenericModel):
 
     def on_init(self, eventobj: Event):
-        printf(f"Initializing {self.componentname}.{self.componentinstancenumber}")
+        print(f"Initializing {self.componentname}.{self.componentinstancenumber}")
         pass
 
     def on_message_from_top(self, eventobj: Event):
-        printf("main: from top")
+        print("main: from top")
         self.send_down(eventobj)
 
     def on_message_from_bottom(self, eventobj: Event):
-        printf("main: from bottom")
+        print("main: from bottom")
         self.send_up(eventobj)
 
     def __init__(self, componentname, componentinstancenumber, context=None, configurationparameters=None, num_worker_threads=1, topology=None):
-        printf("main: init")
+        print("main: init")
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
         # SUBCOMPONENTS
         
@@ -75,7 +75,7 @@ class AdHocNode(GenericModel):
         
 
 def main():
-    printf("main")
+    print("main")
     topo = Topology()
 # Note that the topology has to specific: usrp winslab_b210_0 is run by instance 0 of the component
 # Therefore, the usrps have to have names winslab_b210_x where x \in (0 to nodecount-1)

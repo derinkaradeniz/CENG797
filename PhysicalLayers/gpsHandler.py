@@ -26,23 +26,23 @@ class GPSHandlerAppEventTypes(Enum):
 class GPSHandlerApp(GenericModel):
     myLocation = [0]*2
     def on_init(self, eventobj: Event):
-        printf("gps: on init")
+        print("gps: on init")
         self.counter = 0       
     
     def __init__(self, componentname, componentinstancenumber, context=None, configurationparameters=None, num_worker_threads=1, topology=None):
-        printf("gps: init")
+        print("gps: init")
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
 
         self.myLocation[0] = random.random() * 360 - 180
         self.myLocation[1] = random.random() * 180 - 90
-        printf(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
+        print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
 
     def on_message_from_peer(self, eventobj: Event):
-        printf("gps: from peer")
+        print("gps: from peer")
         #evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
         #hesaplama yap
         if eventobj.eventcontent.header.messagetype == "ISLOCATION": 
-            printf("gps: from peer: islocation") 
+            print("gps: from peer: islocation") 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = self.myLocation
             message = GenericMessage(header, payload)
@@ -50,7 +50,7 @@ class GPSHandlerApp(GenericModel):
             self.send_peer(evt)
 
         elif eventobj.eventcontent.header.messagetype == "ISDISTANCE":
-            printf("gps: from peer: isdistance")
+            print("gps: from peer: isdistance")
             nodeLocation = eventobj.eventContent.payload
             distance = sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
 
@@ -59,4 +59,4 @@ class GPSHandlerApp(GenericModel):
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message) 
             self.send_peer(evt)
-            printf(f"{self.componentname}.{self.componentinstancenumber}: My distance from {eventobj.eventcontent.header.messagefrom} is {str(distance)}")
+            print(f"{self.componentname}.{self.componentinstancenumber}: My distance from {eventobj.eventcontent.header.messagefrom} is {str(distance)}")

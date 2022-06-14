@@ -24,16 +24,16 @@ class CommunicatorAppEventTypes(Enum):
 class CommunicatorApp(GenericModel):
     myLocation = [0]*2
     def on_init(self, eventobj: Event):
-        printf("comm: on init")
+        print("comm: on init")
         self.counter = 0       
     
     def __init__(self, componentname, componentinstancenumber, context=None, configurationparameters=None, num_worker_threads=1, topology=None):
-        printf("comm: init")
+        print("comm: init")
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
         self.eventhandlers[CommunicatorAppEventTypes.STARTGPSREQ] = self.on_startgpsreq
 
     def on_message_from_bottom(self, eventobj: Event):
-        printf("comm: from bottom")
+        print("comm: from bottom")
         if eventobj.eventcontent.header.messagetype == "LOCATION":
             header = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
             payload = eventobj.eventcontent.payload
@@ -42,7 +42,7 @@ class CommunicatorApp(GenericModel):
             self.send_peer(evt)
 
     def on_message_from_peer(self, eventobj: Event):        
-        printf("comm: from peer")
+        print("comm: from peer")
         if eventobj.eventcontent.header.messagetype == "LOCATION":
             header = CommunicatorAppMessageHeader(CommunicatorAppMessageHeader.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messageto)     
             payload = eventobj.eventcontent.payload
@@ -60,7 +60,7 @@ class CommunicatorApp(GenericModel):
 
 
     def on_startgpsreq(self, eventobj: Event):
-        printf("on_startgpsreq")
+        print("on_startgpsreq")
         header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISLOCATION, self.componentinstancenumber, self.componentinstancenumber)     
         payload = "location request"
         message = GenericMessage(header, payload)
