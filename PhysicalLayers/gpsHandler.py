@@ -60,3 +60,5 @@ class GPSHandlerApp(GenericModel):
             evt = Event(self, EventTypes.MFRP, message) 
             self.send_peer(evt)
             print(f"{self.componentname}.{self.componentinstancenumber}: My distance from {eventobj.eventcontent.header.messagefrom} is {str(distance)}")
+        else:
+            print("gps: from peer: nothing")
