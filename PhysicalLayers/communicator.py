@@ -3,7 +3,7 @@ import random
 
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
-from gpsHandler import *
+from gpsHandler import GPSHandlerAppMessageTypes
 import pickle
 
 from lorem import *
