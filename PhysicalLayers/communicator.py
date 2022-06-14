@@ -65,7 +65,7 @@ class CommunicatorApp(GenericModel):
                 payload = loremIpsum
                 message = GenericMessage(header, payload) 
                 evt = Event(self, EventTypes.MFRP, message)
-                self.send_peer(evt)
+                self.send_down(evt)
 
 
     def on_startgpsreq(self, eventobj: Event):
