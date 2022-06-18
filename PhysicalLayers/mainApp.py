@@ -96,7 +96,7 @@ def main():
     #    i = i + 1
 
     i = 0
-    while(i < 10):
+    while(i < 3):
         j = 0
         while(j < 4):
             #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
