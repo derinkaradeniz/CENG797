@@ -69,6 +69,12 @@ class GPSHandlerApp(GenericModel):
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message)
             self.send_peer(evt)
+        elif eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATIONBOTTOM:
+            header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATIONBOTTOM, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
+            payload = self.myLocation
+            message = GenericMessage(header, payload)
+            evt = Event(self, EventTypes.MFRP, message)
+            self.send_peer(evt)
         elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISDISTANCE:
             #print("gps: from peer: isdistance")
             nodeLocation = eventobj.eventcontent.payload

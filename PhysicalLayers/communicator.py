@@ -42,6 +42,17 @@ class CommunicatorApp(GenericModel):
         #print("comm: from bottom")
         if eventobj.eventcontent.header.messagefrom != self.componentinstancenumber:
             if eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.LOCATION:
+                header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISLOCATIONBOTTOM, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)
+                payload = eventobj.eventcontent.payload
+                message = GenericMessage(header, payload) 
+                evt = Event(self, EventTypes.MFRP, message)
+                self.send_peer(evt)
+                #header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
+                #payload = eventobj.eventcontent.payload
+                #message = GenericMessage(header, payload) 
+                #evt = Event(self, EventTypes.MFRP, message)
+                #self.send_peer(evt)
+            elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.LOCATIONBOTTOM:
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
                 payload = eventobj.eventcontent.payload
                 message = GenericMessage(header, payload) 
@@ -61,6 +72,13 @@ class CommunicatorApp(GenericModel):
             message = GenericMessage(header, payload) 
             evt = Event(self, EventTypes.MFRT, message)
             self.send_down(evt)
+        elif eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.LOCATIONBOTTOM:
+            #header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATIONBOTTOM, self.componentinstancenumber, eventobj.eventcontent.header.messageto)     
+            #payload = eventobj.eventcontent.payload
+            #message = GenericMessage(header, payload) 
+            #evt = Event(self, EventTypes.MFRT, message)
+            #self.send_down(evt)            
+            self.send_down(eventobj)
         elif eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.DISTANCE:
             #print("comm: from peer: distance")
             distance = eventobj.eventcontent.payload
