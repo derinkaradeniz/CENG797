@@ -40,14 +40,17 @@ class CommunicatorApp(GenericModel):
 
     def on_message_from_bottom(self, eventobj: Event):
         #print("comm: from bottom")
-        if eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.LOCATION:
-            header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
-            payload = eventobj.eventcontent.payload
-            message = GenericMessage(header, payload) 
-            evt = Event(self, EventTypes.MFRP, message)
-            self.send_peer(evt)
-        elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.TEXTMESSAGE:
-            print(f"{self.componentname}.{self.componentinstancenumber}: Text message received from {eventobj.eventcontent.header.messagefrom}: {eventobj.eventcontent.payload}")
+        if eventobj.eventcontent.header.messagefrom != self.componentinstancenumber:
+            if eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.LOCATION:
+                header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
+                payload = eventobj.eventcontent.payload
+                message = GenericMessage(header, payload) 
+                evt = Event(self, EventTypes.MFRP, message)
+                self.send_peer(evt)
+            elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.TEXTMESSAGE:
+                print(f"{self.componentname}.{self.componentinstancenumber}: Text message received from {eventobj.eventcontent.header.messagefrom}: {eventobj.eventcontent.payload}")
+        else:
+            pass
 
     def on_message_from_peer(self, eventobj: Event):        
         #print("comm: from peer")
