@@ -47,7 +47,7 @@ class CommunicatorApp(GenericModel):
             evt = Event(self, EventTypes.MFRP, message)
             self.send_peer(evt)
         elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.TEXTMESSAGE:
-            print(f"{self.componentname}.{self.componentinstancenumber}: Text message received from {eventobj.eventcontent.messagefrom}: {eventobj.eventcontent.payload}")
+            print(f"{self.componentname}.{self.componentinstancenumber}: Text message received from {eventobj.eventcontent.header.messagefrom}: {eventobj.eventcontent.payload}")
 
     def on_message_from_peer(self, eventobj: Event):        
         #print("comm: from peer")
