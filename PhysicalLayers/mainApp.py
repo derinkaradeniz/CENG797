@@ -102,7 +102,7 @@ def main():
             #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
             topo.nodes[j].appl.send_self(Event(topo.nodes[0], CommunicatorAppEventTypes.STARTGPSREQ, None))
 
-            time.sleep(1)
+            #time.sleep(1)
             j = j + 1
         i = i + 1
 
