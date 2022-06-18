@@ -10,8 +10,9 @@ class ComponentConfigurationParameters():
     pass
 
 class MacCsmaPPersistentConfigurationParameters (ComponentConfigurationParameters):
-    def __init__(self, p):
+    def __init__(self, p, cca_threshold = -35):
         self.p = p
+        self.cca_threshold = cca_threshold
 
 class CsmaPlain(GenericMac):
     
