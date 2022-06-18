@@ -11,16 +11,14 @@ from adhoccomputing.Networking.LogicalChannels.GenericChannel import GenericChan
 from adhoccomputing.Networking.PhysicalLayer.UsrpB210OfdmFlexFramePhy import  UsrpB210OfdmFlexFramePhy
 #from adhoccomputing.Networking.MacProtocol.CSMA import MacCsmaPPersistent, MacCsmaPPersistentConfigurationParameters
 from adhoccomputing.Networking.ApplicationLayer.MessageSegmentation import *
-from csmaPlain import CsmaPlain, MacCsmaPPersistentConfigurationParameters
+from csmaPlain import CsmaPlain, CsmaPlainConfigurationParameters
 from gpsHandler import *
 from communicator import *
 import logging
 
 
-macconfig = MacCsmaPPersistentConfigurationParameters(0.5, -70)
+macconfig = CsmaPlainConfigurationParameters(-70)
 sdrconfig = SDRConfiguration(freq =915000000.0, bandwidth = 2000000, chan = 0, hw_tx_gain = 70, hw_rx_gain = 20, sw_tx_gain = -12.0)
-#sdrconfig = SDRConfiguration(freq =915000000.0, bandwidth = 4000000, chan = 0, hw_tx_gain = 70, hw_rx_gain = 30, sw_tx_gain = -12.0)
-#sdrconfig = SDRConfiguration(freq =915000000.0, bandwidth = 20000000, chan = 0, hw_tx_gain = 76, hw_rx_gain = 20, sw_tx_gain = -12.0)
 
 
 
@@ -31,23 +29,20 @@ class AdHocNode(GenericModel):
         pass
 
     def on_message_from_top(self, eventobj: Event):
-        #print("main: from top")
         self.send_down(eventobj)
 
     def on_message_from_bottom(self, eventobj: Event):
-        #print("main: from bottom")
         self.send_up(eventobj)
 
     def __init__(self, componentname, componentinstancenumber, context=None, configurationparameters=None, num_worker_threads=1, topology=None):
         print("main: init")
         super().__init__(componentname, componentinstancenumber, context, configurationparameters, num_worker_threads, topology)
-        # SUBCOMPONENTS
         
+        #SubComponents
         self.gpsApp = GPSHandlerApp("GPSHandlerApp", componentinstancenumber, topology=topology)
         self.appl = CommunicatorApp("CommunicatorApp", componentinstancenumber, topology=topology)
         self.seg = MessageSegmentation("MessageSegmentation", componentinstancenumber, topology=topology)
         self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology, usrpconfig = sdrconfig)
-        #self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology,usrpconfig=sdrconfig, )
         self.mac = CsmaPlain("MacCsmaPPersistent", componentinstancenumber,  configurationparameters=macconfig, sdr=self.phy.sdrdev, topology=topology)
 
         self.components.append(self.gpsApp)
@@ -56,7 +51,7 @@ class AdHocNode(GenericModel):
         self.components.append(self.seg)
         self.components.append(self.phy)
         
-        # CONNECTIONS AMONG SUBCOMPONENTS
+        # SubComponent Connections
         self.gpsApp.connect_me_to_component(ConnectorTypes.PEER, self.appl) 
 
         self.appl.connect_me_to_component(ConnectorTypes.PEER, self.gpsApp)
@@ -68,33 +63,14 @@ class AdHocNode(GenericModel):
         self.mac.connect_me_to_component(ConnectorTypes.UP, self.seg)
         self.mac.connect_me_to_component(ConnectorTypes.DOWN, self.phy)
         
-        # Connect the bottom component to the composite component....
         self.phy.connect_me_to_component(ConnectorTypes.UP, self.mac)
-        self.phy.connect_me_to_component(ConnectorTypes.DOWN, self)
-        
-        # self.phy.connect_me_to_component(ConnectorTypes.DOWN, self)
-        # self.connect_me_to_component(ConnectorTypes.DOWN, self.appl)
-        
+        self.phy.connect_me_to_component(ConnectorTypes.DOWN, self)        
 
 def main():
     print("main")
     topo = Topology()
-# Note that the topology has to specific: usrp winslab_b210_0 is run by instance 0 of the component
-# Therefore, the usrps have to have names winslab_b210_x where x \in (0 to nodecount-1)
     topo.construct_winslab_topology_without_channels(4, AdHocNode)
-  # topo.construct_winslab_topology_with_channels(2, UsrpNode, FIFOBroadcastPerfectChannel)
-  
-  # time.sleep(1)
-  # topo.nodes[0].send_self(Event(topo.nodes[0], UsrpNodeEventTypes.STARTBROADCAST, None))
-
-    topo.start()
-    #i = 0
-    #while(i < 4):
-    #    #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
-    #    topo.nodes[i].appl.send_self(Event(topo.nodes[0], CommunicatorAppEventTypes.STARTGPSREQ, None))
-    #
-    #    time.sleep(2)
-    #    i = i + 1
+    topo.start()    
 
     i = 0
     while(i < 1):
@@ -107,7 +83,6 @@ def main():
         i = i + 1
     
     print("END")
-
 
 if __name__ == "__main__":
     main()
