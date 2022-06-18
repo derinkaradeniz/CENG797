@@ -45,7 +45,7 @@ class GPSHandlerApp(GenericModel):
         #self.myLocation[1] = random.random() * 180 - 90
         #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
 
-    def gpsLocator():
+    def gpsLocator(self):
         self.myLocation = nodeGPSLocations[int(self.componentinstancenumber)]
 
     def on_message_from_peer(self, eventobj: Event):
