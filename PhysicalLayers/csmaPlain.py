@@ -3,12 +3,11 @@ import time, random, math
 from adhoccomputing.Generics import Event, EventTypes
 from adhoccomputing.Networking.MacProtocol.GenericMAC import GenericMac, GenericMacEventTypes
 
-
 class ComponentConfigurationParameters():
     pass
 
 class CsmaPlainConfigurationParameters (ComponentConfigurationParameters):
-    def __init__(self, p, cca_threshold = -35):
+    def __init__(self, cca_threshold = -35):
         self.cca_threshold = cca_threshold
 
 class CsmaPlain(GenericMac):

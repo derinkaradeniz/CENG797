@@ -88,4 +88,3 @@ class CommunicatorApp(GenericModel):
         message = GenericMessage(header, payload)
         evt = Event(self, EventTypes.MFRP, message)
         self.send_peer(evt)
-
