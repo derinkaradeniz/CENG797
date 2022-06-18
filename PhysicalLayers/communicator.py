@@ -61,7 +61,7 @@ class CommunicatorApp(GenericModel):
                 evt = Event(self, EventTypes.MFRP, message)
                 self.send_peer(evt)
             elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.TEXTMESSAGE:
-                print(f"{self.componentname}.{self.componentinstancenumber}: Text message received from {eventobj.eventcontent.header.messagefrom}: {eventobj.eventcontent.payload}")
+                print(f"{self.componentname}.{self.componentinstancenumber}: Text message received from {eventobj.eventcontent.header.messagefrom}: {eventobj.eventcontent.payload.}")
         else:
             pass
 
@@ -69,7 +69,8 @@ class CommunicatorApp(GenericModel):
         #print("comm: from peer")
         if eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.LOCATION:
             #print("comm: from peer: location")
-            header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATION, self.componentinstancenumber, MessageDestinationIdentifiers.LINKLAYERBROADCAST)     
+            header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATION, self.componentinstancenumber, 1)
+            #MessageDestinationIdentifiers.LINKLAYERBROADCAST   
             payload = eventobj.eventcontent.payload
             message = GenericMessage(header, payload) 
             evt = Event(self, EventTypes.MFRT, message)
@@ -88,7 +89,7 @@ class CommunicatorApp(GenericModel):
             #print(f"Distance at comm: {str(distance)}")
             if distance < 500:
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
-                payload = loremIpsum
+                payload = loremIpsum2
                 message = GenericMessage(header, payload) 
                 evt = Event(self, EventTypes.MFRT, message)
                 self.send_down(evt)
