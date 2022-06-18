@@ -90,7 +90,9 @@ class CommunicatorApp(GenericModel):
             #print(f"Distance at comm: {str(distance)}")
             if distance < 500:
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
-                payload = lorem
+                fileT = open("loremIpsum.txt", "r")
+                lorem2=fileT.read()
+                payload = lorem2
                 message = GenericMessage(header, payload) 
                 evt = Event(self, EventTypes.MFRT, message)
                 self.send_down(evt)
