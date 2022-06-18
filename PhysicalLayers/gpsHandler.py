@@ -59,9 +59,9 @@ class GPSHandlerApp(GenericModel):
         #print(f"gps: from peer message type compare {eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISLOCATION}")
         #print(f"gps: from peer message type compare {CommunicatorAppMessageTypes.ISLOCATION == CommunicatorAppMessageTypes.ISLOCATION }")
 
-        #self.myLocation[0] = random.random() * 100 - 50
-        #self.myLocation[1] = random.random() * 100 - 50
-        self.gpsLocator()
+        self.myLocation[0] = random.random() * 100 - 50
+        self.myLocation[1] = random.random() * 100 - 50
+        #self.gpsLocator()
         #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
         if eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION: 
             #print("gps: from peer: islocation") 
