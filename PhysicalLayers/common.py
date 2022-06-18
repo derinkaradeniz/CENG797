@@ -2,7 +2,6 @@ from enum import Enum
 
 class CommunicatorAppMessageTypes(Enum):
     LOCATION = "LOCATION"
-    LOCATIONBOTTOM = "LOCATIONBOTTOM"
     ISLOCATION = "ISLOCATION"
     ISLOCATIONBOTTOM = "ISLOCATIONBOTTOM"
     ISDISTANCE = "ISDISTANCE"
@@ -10,7 +9,8 @@ class CommunicatorAppMessageTypes(Enum):
 
 # define your own message types
 class GPSHandlerAppMessageTypes(Enum):
-    LOCATION = "LOCATION"
+    LOCATION = "LOCATION"    
+    LOCATIONBOTTOM = "LOCATIONBOTTOM"
     DISTANCE = "DISTANCE"
 
 nodeGPSLocations = [
