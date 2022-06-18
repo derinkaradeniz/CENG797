@@ -60,7 +60,7 @@ class GPSHandlerApp(GenericModel):
 
         #self.myLocation[0] = random.random() * 100 - 50
         #self.myLocation[1] = random.random() * 100 - 50
-        gpsLocator(self.componentinstancenumber)
+        self.gpsLocator(self.componentinstancenumber)
         #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
         if eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION: 
             #print("gps: from peer: islocation") 
