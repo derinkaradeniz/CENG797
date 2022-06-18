@@ -87,7 +87,7 @@ def main():
 
     topo.start()
     i = 0
-    while(i < 1):
+    while(i < 4):
         #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
         topo.nodes[i].appl.send_self(Event(topo.nodes[0], CommunicatorAppEventTypes.STARTGPSREQ, None))
 
