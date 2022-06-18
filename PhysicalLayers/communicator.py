@@ -3,8 +3,9 @@ import random
 
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
-from gpsHandler import GPSHandlerAppMessageTypes, CommunicatorAppMessageTypes
-import pickle
+from common import *
+#from gpsHandler import GPSHandlerAppMessageTypes, CommunicatorAppMessageTypes
+#import pickle
 
 from lorem import *
 

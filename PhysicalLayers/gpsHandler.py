@@ -4,18 +4,19 @@ import math
 
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
-import pickle
+from common import *
+#import pickle
 
-class CommunicatorAppMessageTypes(Enum):
-    LOCATION = "LOCATION"
-    ISLOCATION = "ISLOCATION"
-    ISDISTANCE = "ISDISTANCE"
-    TEXTMESSAGE = "TEXTMESSAGE"
+#class CommunicatorAppMessageTypes(Enum):
+#    LOCATION = "LOCATION"
+#    ISLOCATION = "ISLOCATION"
+#    ISDISTANCE = "ISDISTANCE"
+#    TEXTMESSAGE = "TEXTMESSAGE"
 
-# define your own message types
-class GPSHandlerAppMessageTypes(Enum):
-    LOCATION = "LOCATION"
-    DISTANCE = "DISTANCE"
+## define your own message types
+#class GPSHandlerAppMessageTypes(Enum):
+#    LOCATION = "LOCATION"
+#    DISTANCE = "DISTANCE"
 
 # define your own message header structure
 class GPSHandlerAppMessageHeader(GenericMessageHeader):
