@@ -98,13 +98,10 @@ def main():
     i = 0
     while(i < 10):
         j = 0
-        while(j < 1):
+        while(j < 4):
             #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
-            topo.nodes[0].appl.send_self(Event(topo.nodes[0], CommunicatorAppEventTypes.STARTGPSREQ, None))
-            topo.nodes[1].appl.send_self(Event(topo.nodes[1], CommunicatorAppEventTypes.STARTGPSREQ, None))
-            topo.nodes[2].appl.send_self(Event(topo.nodes[2], CommunicatorAppEventTypes.STARTGPSREQ, None))
-            topo.nodes[3].appl.send_self(Event(topo.nodes[3], CommunicatorAppEventTypes.STARTGPSREQ, None))
-            time.sleep(2)
+            topo.nodes[j].appl.send_self(Event(topo.nodes[0], CommunicatorAppEventTypes.STARTGPSREQ, None))
+            time.sleep(0.5)
             j = j + 1
         i = i + 1
 
