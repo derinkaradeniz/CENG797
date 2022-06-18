@@ -39,10 +39,10 @@ class CommunicatorApp(GenericModel):
         self.eventhandlers[CommunicatorAppEventTypes.STARTGPSREQ] = self.on_startgpsreq
 
     def on_message_from_bottom(self, eventobj: Event):
-        print("comm: from bottom")
+        #print("comm: from bottom")
         if eventobj.eventcontent.header.messagefrom != self.componentinstancenumber:
             if eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.LOCATION:
-                print("comm: from bottom: location")
+                #print("comm: from bottom: location")
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISLOCATIONBOTTOM, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)
                 payload = eventobj.eventcontent.payload
                 message = GenericMessage(header, payload) 
@@ -54,7 +54,7 @@ class CommunicatorApp(GenericModel):
                 #evt = Event(self, EventTypes.MFRP, message)
                 #self.send_peer(evt)
             elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.LOCATIONBOTTOM:
-                print("comm: from bottom: locationbottom")
+                #print("comm: from bottom: locationbottom")
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
                 payload = eventobj.eventcontent.payload
                 message = GenericMessage(header, payload) 
@@ -66,16 +66,16 @@ class CommunicatorApp(GenericModel):
             pass
 
     def on_message_from_peer(self, eventobj: Event):        
-        print("comm: from peer")
+        #print("comm: from peer")
         if eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.LOCATION:
-            print("comm: from peer: location")
+            #print("comm: from peer: location")
             header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATION, self.componentinstancenumber, MessageDestinationIdentifiers.LINKLAYERBROADCAST)     
             payload = eventobj.eventcontent.payload
             message = GenericMessage(header, payload) 
             evt = Event(self, EventTypes.MFRT, message)
             self.send_down(evt)
         elif eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.LOCATIONBOTTOM:
-            print("comm: from peer: locationbottom")
+            #print("comm: from peer: locationbottom")
             header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATIONBOTTOM, self.componentinstancenumber, eventobj.eventcontent.header.messageto)     
             payload = eventobj.eventcontent.payload
             message = GenericMessage(header, payload) 
@@ -83,7 +83,7 @@ class CommunicatorApp(GenericModel):
             self.send_down(evt)            
             #self.send_down(eventobj)
         elif eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.DISTANCE:
-            print("comm: from peer: distance")
+            #print("comm: from peer: distance")
             distance = eventobj.eventcontent.payload
             #print(f"Distance at comm: {str(distance)}")
             if distance < 50:
@@ -95,7 +95,7 @@ class CommunicatorApp(GenericModel):
 
 
     def on_startgpsreq(self, eventobj: Event):
-        print("on_startgpsreq")
+        #print("on_startgpsreq")
         header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISLOCATION, self.componentinstancenumber, self.componentinstancenumber)     
         payload = "location request"
         message = GenericMessage(header, payload)

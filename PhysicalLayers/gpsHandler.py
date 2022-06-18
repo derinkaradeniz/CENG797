@@ -46,10 +46,11 @@ class GPSHandlerApp(GenericModel):
         #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
 
     def gpsLocator(self):
-        self.myLocation = nodeGPSLocations[int(self.componentinstancenumber)]
+        self.myLocation[0] = nodeGPSLocations[int(self.componentinstancenumber)][0]
+        self.myLocation[1] = nodeGPSLocations[int(self.componentinstancenumber)][1]
 
     def on_message_from_peer(self, eventobj: Event):
-        print("gps: from peer")
+        #print("gps: from peer")
         #evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
         #hesaplama yap
         #print(f"gps: from peer message type: {eventobj.eventcontent.header.messagetype}")
@@ -60,24 +61,24 @@ class GPSHandlerApp(GenericModel):
 
         #self.myLocation[0] = random.random() * 100 - 50
         #self.myLocation[1] = random.random() * 100 - 50
-        self.gpsLocator
+        self.gpsLocator()
         #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
         if eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION: 
-            print("gps: from peer: islocation") 
+            #print("gps: from peer: islocation") 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = self.myLocation
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message)
             self.send_peer(evt)
         elif eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATIONBOTTOM:
-            print("gps: from peer: islocationbottom") 
+            #print("gps: from peer: islocationbottom") 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATIONBOTTOM, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = self.myLocation
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message)
             self.send_peer(evt)
         elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISDISTANCE:
-            print("gps: from peer: isdistance")
+            #print("gps: from peer: isdistance")
             nodeLocation = eventobj.eventcontent.payload
             #print(f"Node location {eventobj.eventcontent.header.messagefrom}: {nodeLocation} ")
             distance = math.sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
