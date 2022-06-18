@@ -47,7 +47,7 @@ class CsmaPlain(GenericMac):
                 print(f"retrial: {self.retrialcnt}")
                 rand = random.random()
                 backoffCount = math.ceil(rand*(2*self.retrialcnt-1)) 
-                time.sleep(random.randrange(0,backoffCount*0.001))
+                time.sleep(backoffCount*0.001)
                 #time.sleep(random.randrange(0,math.pow(2,self.retrialcnt))*0.001)
         else:
             pass
