@@ -76,12 +76,12 @@ class CommunicatorApp(GenericModel):
             self.send_down(evt)
         elif eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.LOCATIONBOTTOM:
             print("comm: from peer: locationbottom")
-            #header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATIONBOTTOM, self.componentinstancenumber, eventobj.eventcontent.header.messageto)     
-            #payload = eventobj.eventcontent.payload
-            #message = GenericMessage(header, payload) 
-            #evt = Event(self, EventTypes.MFRT, message)
-            #self.send_down(evt)            
-            self.send_down(eventobj)
+            header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.LOCATIONBOTTOM, self.componentinstancenumber, eventobj.eventcontent.header.messageto)     
+            payload = eventobj.eventcontent.payload
+            message = GenericMessage(header, payload) 
+            evt = Event(self, EventTypes.MFRT, message)
+            self.send_down(evt)            
+            #self.send_down(eventobj)
         elif eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.DISTANCE:
             print("comm: from peer: distance")
             distance = eventobj.eventcontent.payload

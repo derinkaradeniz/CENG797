@@ -1,7 +1,8 @@
 from enum import Enum
 
 class CommunicatorAppMessageTypes(Enum):
-    LOCATION = "LOCATION"
+    LOCATION = "LOCATION"        
+    LOCATIONBOTTOM = "LOCATIONBOTTOM"
     ISLOCATION = "ISLOCATION"
     ISLOCATIONBOTTOM = "ISLOCATIONBOTTOM"
     ISDISTANCE = "ISDISTANCE"
