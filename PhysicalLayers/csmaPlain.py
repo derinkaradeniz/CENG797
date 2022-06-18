@@ -44,35 +44,36 @@ class CsmaPlain(GenericMac):
                         logger.critical(f"MacCsmaPPersistent handle_frame exception {e}")
                 else:
                     self.retrialcnt = self.retrialcnt + 1
+                    print(f"retrial: {self.retrialcnt}")
                     time.sleep(random.randrange(0,math.pow(2,self.retrialcnt))*0.001)
         else:
             pass
         time.sleep(0.00001) # TODO: Think about this otherwise we will only do cca
         self.send_self(Event(self, GenericMacEventTypes.HANDLEMACFRAME, None)) #Continuously trigger handle_frame
 
-    def handle_framexxx(self):
-        #TODO: not a good solution put message in queue, schedule a future event to retry yhe first item in queueu    
-        #print("handle_frame")
-        if self.framequeue.qsize() > 0:
-            #print("handle_frame", "queue not empty")
-            randval = random.random()
-            if randval < self.p: # TODO: Check if correct
-                clearmi, powerdb  = self.sdrdev.ischannelclear(threshold=-35)
-                #print("Component:", self.componentinstancenumber, "clear mi=", clearmi, " Power=", powerdb)
-                if  clearmi == True:
-                    try:
-                        eventobj = self.framequeue.get()
-                        evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
-                        self.send_down(evt)
-                        self.retrialcnt = 0
-                    except Exception as e:
-                        print("MacCsmaPPersistent handle_frame exception, ", e)
-                else:
-                    self.retrialcnt = self.retrialcnt + 1
-                    time.sleep(random.randrange(0,math.pow(2,self.retrialcnt))*0.001)
-                    #print("Busy")
-        else:
-            #print("Queue size", self.framequeue.qsize())
-            pass
-        time.sleep(0.00001) # TODO: Think about this otherwise we will only do cca
-        self.send_self(Event(self, GenericMacEventTypes.HANDLEMACFRAME, None)) #Continuously trigger handle_frame
+    #def handle_framexxx(self):
+    #    #TODO: not a good solution put message in queue, schedule a future event to retry yhe first item in queueu    
+    #    #print("handle_frame")
+    #    if self.framequeue.qsize() > 0:
+    #        #print("handle_frame", "queue not empty")
+    #        randval = random.random()
+    #        if randval < self.p: # TODO: Check if correct
+    #            clearmi, powerdb  = self.sdrdev.ischannelclear(threshold=-35)
+    #            #print("Component:", self.componentinstancenumber, "clear mi=", clearmi, " Power=", powerdb)
+    #            if  clearmi == True:
+    #                try:
+    #                    eventobj = self.framequeue.get()
+    #                    evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
+    #                    self.send_down(evt)
+    #                    self.retrialcnt = 0
+    #                except Exception as e:
+    #                    print("MacCsmaPPersistent handle_frame exception, ", e)
+    #            else:
+    #                self.retrialcnt = self.retrialcnt + 1
+    #                time.sleep(random.randrange(0,math.pow(2,self.retrialcnt))*0.001)
+    #                #print("Busy")
+    #    else:
+    #        #print("Queue size", self.framequeue.qsize())
+    #        pass
+    #    time.sleep(0.00001) # TODO: Think about this otherwise we will only do cca
+    #    self.send_self(Event(self, GenericMacEventTypes.HANDLEMACFRAME, None)) #Continuously trigger handle_frame
