@@ -61,7 +61,8 @@ class CommunicatorApp(GenericModel):
                 evt = Event(self, EventTypes.MFRP, message)
                 self.send_peer(evt)
             elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.TEXTMESSAGE:
-                print(f"{self.componentname}.{self.componentinstancenumber}: Text message received from {eventobj.eventcontent.header.messagefrom}: {eventobj.eventcontent.payload.rsplit(" ",1)}")
+                lastword = str(eventobj.eventcontent.payload).rsplit(" ",1)
+                print(f"{self.componentname}.{self.componentinstancenumber}: Text message received from {eventobj.eventcontent.header.messagefrom}: {lastword}")
         else:
             pass
 
