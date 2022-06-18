@@ -49,7 +49,7 @@ class GPSHandlerApp(GenericModel):
         self.myLocation = nodeGPSLocations[int(self.componentinstancenumber)]
 
     def on_message_from_peer(self, eventobj: Event):
-        #print("gps: from peer")
+        print("gps: from peer")
         #evt = Event(self, EventTypes.MFRT, eventobj.eventcontent)
         #hesaplama yap
         #print(f"gps: from peer message type: {eventobj.eventcontent.header.messagetype}")
@@ -63,20 +63,21 @@ class GPSHandlerApp(GenericModel):
         self.gpsLocator
         #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
         if eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION: 
-            #print("gps: from peer: islocation") 
+            print("gps: from peer: islocation") 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATION, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = self.myLocation
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message)
             self.send_peer(evt)
         elif eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATIONBOTTOM:
+            print("gps: from peer: islocationbottom") 
             header = GPSHandlerAppMessageHeader(GPSHandlerAppMessageTypes.LOCATIONBOTTOM, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom)     
             payload = self.myLocation
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRP, message)
             self.send_peer(evt)
         elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.ISDISTANCE:
-            #print("gps: from peer: isdistance")
+            print("gps: from peer: isdistance")
             nodeLocation = eventobj.eventcontent.payload
             #print(f"Node location {eventobj.eventcontent.header.messagefrom}: {nodeLocation} ")
             distance = math.sqrt((self.myLocation[0] - nodeLocation[0])**2 + (self.myLocation[1] - nodeLocation[1])**2)
