@@ -5,22 +5,18 @@ import time
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
 from adhoccomputing.Experimentation.Topology import Topology
-from adhoccomputing.Networking.LinkLayer.GenericLinkLayer import GenericLinkLayer
-from adhoccomputing.Networking.NetworkLayer.GenericNetworkLayer import GenericNetworkLayer
-from adhoccomputing.Networking.LogicalChannels.GenericChannel import GenericChannel
+#from adhoccomputing.Networking.LinkLayer.GenericLinkLayer import GenericLinkLayer
+#from adhoccomputing.Networking.NetworkLayer.GenericNetworkLayer import GenericNetworkLayer
+#from adhoccomputing.Networking.LogicalChannels.GenericChannel import GenericChannel
 from adhoccomputing.Networking.PhysicalLayer.UsrpB210OfdmFlexFramePhy import  UsrpB210OfdmFlexFramePhy
-#from adhoccomputing.Networking.MacProtocol.CSMA import MacCsmaPPersistent, MacCsmaPPersistentConfigurationParameters
 from adhoccomputing.Networking.ApplicationLayer.MessageSegmentation import *
 from csmaPlain import CsmaPlain, CsmaPlainConfigurationParameters
 from gpsHandler import *
 from communicator import *
 import logging
 
-
 macconfig = CsmaPlainConfigurationParameters(-70)
 sdrconfig = SDRConfiguration(freq =915000000.0, bandwidth = 2000000, chan = 0, hw_tx_gain = 70, hw_rx_gain = 20, sw_tx_gain = -12.0)
-
-
 
 class AdHocNode(GenericModel):
 
