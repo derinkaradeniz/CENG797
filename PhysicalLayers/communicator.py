@@ -97,7 +97,7 @@ class CommunicatorApp(GenericModel):
                 print("fileopen")
                 lorem2=fileT.read()
                 print("file read")
-                payload = loremIpsum2
+                payload = lorem2
                 message = GenericMessage(header, payload) 
                 evt = Event(self, EventTypes.MFRT, message)
                 self.send_down(evt)
