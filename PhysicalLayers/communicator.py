@@ -1,5 +1,6 @@
 import time
 import random
+from pathlib import Path
 
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
@@ -90,7 +91,9 @@ class CommunicatorApp(GenericModel):
             #print(f"Distance at comm: {str(distance)}")
             if distance < 500:
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
-                fileT = open("loremIpsum.txt", "r")
+                script_location = Path(__file__).absolute().parent
+                file_location = script_location / 'loremIpsum.txt'
+                fileT = file_location.open()
                 lorem2=fileT.read()
                 payload = lorem2
                 message = GenericMessage(header, payload) 
