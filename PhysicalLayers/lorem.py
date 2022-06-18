@@ -1,4 +1,4 @@
-f = open("loremIpsum.txt", "r")
+f = open("derinkaradeniz/CENG797/PhysicalLayers/loremIpsum.txt", "r")
 lorem=f.read()
 
 loremIpsum = "lorem ipsum"
