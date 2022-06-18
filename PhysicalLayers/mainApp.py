@@ -93,7 +93,7 @@ def main():
     #    topo.nodes[i].appl.send_self(Event(topo.nodes[0], CommunicatorAppEventTypes.STARTGPSREQ, None))
     #
     #    time.sleep(2)
-        i = i + 1
+    #    i = i + 1
 
     i = 0
     while(i < 10):
