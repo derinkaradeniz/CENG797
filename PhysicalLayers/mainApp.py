@@ -18,6 +18,7 @@ import logging
 
 
 macconfig = MacCsmaPPersistentConfigurationParameters(0.5, -10)
+sdrconfig = SDRConfiguration(freq =915000000.0, bandwidth = 200000, chan = 0, hw_tx_gain = 70, hw_rx_gain = 20, sw_tx_gain = -12.0)
 #sdrconfig = SDRConfiguration(freq =915000000.0, bandwidth = 4000000, chan = 0, hw_tx_gain = 70, hw_rx_gain = 30, sw_tx_gain = -12.0)
 #sdrconfig = SDRConfiguration(freq =915000000.0, bandwidth = 20000000, chan = 0, hw_tx_gain = 76, hw_rx_gain = 20, sw_tx_gain = -12.0)
 
@@ -45,7 +46,7 @@ class AdHocNode(GenericModel):
         self.gpsApp = GPSHandlerApp("GPSHandlerApp", componentinstancenumber, topology=topology)
         self.appl = CommunicatorApp("CommunicatorApp", componentinstancenumber, topology=topology)
         self.seg = MessageSegmentation("MessageSegmentation", componentinstancenumber, topology=topology)
-        self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology)
+        self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology, usrpconfig = sdrconfig)
         #self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology,usrpconfig=sdrconfig, )
         self.mac = CsmaPlain("MacCsmaPPersistent", componentinstancenumber,  configurationparameters=macconfig, sdr=self.phy.sdrdev, topology=topology)
 
