@@ -9,8 +9,9 @@ from adhoccomputing.Networking.LinkLayer.GenericLinkLayer import GenericLinkLaye
 from adhoccomputing.Networking.NetworkLayer.GenericNetworkLayer import GenericNetworkLayer
 from adhoccomputing.Networking.LogicalChannels.GenericChannel import GenericChannel
 from adhoccomputing.Networking.PhysicalLayer.UsrpB210OfdmFlexFramePhy import  UsrpB210OfdmFlexFramePhy
-from adhoccomputing.Networking.MacProtocol.CSMA import MacCsmaPPersistent, MacCsmaPPersistentConfigurationParameters
+#from adhoccomputing.Networking.MacProtocol.CSMA import MacCsmaPPersistent, MacCsmaPPersistentConfigurationParameters
 from adhoccomputing.Networking.ApplicationLayer.MessageSegmentation import *
+from csmaPlain import CsmaPlain, MacCsmaPPersistentConfigurationParameters
 from gpsHandler import *
 from communicator import *
 import logging
@@ -46,7 +47,7 @@ class AdHocNode(GenericModel):
         self.seg = MessageSegmentation("MessageSegmentation", componentinstancenumber, topology=topology)
         self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology)
         #self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology,usrpconfig=sdrconfig, )
-        self.mac = MacCsmaPPersistent("MacCsmaPPersistent", componentinstancenumber,  configurationparameters=macconfig, sdr=self.phy.sdrdev, topology=topology)
+        self.mac = CsmaPlain("MacCsmaPPersistent", componentinstancenumber,  configurationparameters=macconfig, sdr=self.phy.sdrdev, topology=topology)
 
         self.components.append(self.gpsApp)
         self.components.append(self.appl)
@@ -85,13 +86,24 @@ def main():
   # time.sleep(1)
   # topo.nodes[0].send_self(Event(topo.nodes[0], UsrpNodeEventTypes.STARTBROADCAST, None))
 
-    topo.start()
-    i = 0
-    while(i < 4):
-        #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
-        topo.nodes[i].appl.send_self(Event(topo.nodes[0], CommunicatorAppEventTypes.STARTGPSREQ, None))
+    #topo.start()
+    #i = 0
+    #while(i < 4):
+    #    #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
+    #    topo.nodes[i].appl.send_self(Event(topo.nodes[0], CommunicatorAppEventTypes.STARTGPSREQ, None))
+    #
+    #    time.sleep(2)
+        i = i + 1
 
-        time.sleep(2)
+    i = 0
+    while(i < 10):
+        i = 0
+        while(i < 4):
+            #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
+            topo.nodes[i].appl.send_self(Event(topo.nodes[0], CommunicatorAppEventTypes.STARTGPSREQ, None))
+
+            time.sleep(2)
+            i = i + 1
         i = i + 1
 
 
