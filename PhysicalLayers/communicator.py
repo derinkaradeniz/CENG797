@@ -5,23 +5,8 @@ from pathlib import Path
 from adhoccomputing.GenericModel import GenericModel
 from adhoccomputing.Generics import *
 from common import *
-#from gpsHandler import GPSHandlerAppMessageTypes, CommunicatorAppMessageTypes
-#import pickle
-
 from lorem import *
 
-#class GPSHandlerAppMessageTypes(Enum):
-#    LOCATION = "LOCATION"
-#    DISTANCE = "DISTANCE"
-
-# define your own message types
-#class CommunicatorAppMessageTypes(Enum):
-#    LOCATION = "LOCATION"
-#    ISLOCATION = "ISLOCATION"
-#    ISDISTANCE = "ISDISTANCE"
-#    TEXTMESSAGE = "TEXTMESSAGE"
-
-# define your own message header structure
 class CommunicatorAppMessageHeader(GenericMessageHeader):
     pass
 
@@ -49,11 +34,6 @@ class CommunicatorApp(GenericModel):
                 message = GenericMessage(header, payload) 
                 evt = Event(self, EventTypes.MFRP, message)
                 self.send_peer(evt)
-                #header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
-                #payload = eventobj.eventcontent.payload
-                #message = GenericMessage(header, payload) 
-                #evt = Event(self, EventTypes.MFRP, message)
-                #self.send_peer(evt)
             elif eventobj.eventcontent.header.messagetype == CommunicatorAppMessageTypes.LOCATIONBOTTOM:
                 #print("comm: from bottom: locationbottom")
                 header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.ISDISTANCE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
@@ -88,20 +68,18 @@ class CommunicatorApp(GenericModel):
         elif eventobj.eventcontent.header.messagetype == GPSHandlerAppMessageTypes.DISTANCE:
             #print("comm: from peer: distance")
             distance = eventobj.eventcontent.payload
-            #print(f"Distance at comm: {str(distance)}")
             if distance < 500:
-                header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto)     
+                header = CommunicatorAppMessageHeader(CommunicatorAppMessageTypes.TEXTMESSAGE, eventobj.eventcontent.header.messagefrom, eventobj.eventcontent.header.messageto) 
+
                 script_location = Path(__file__).absolute().parent
                 file_location = script_location / 'loremIpsum.txt'
                 fileT = file_location.open()
-                print("fileopen")
                 lorem2=fileT.read()
-                print("file read")
                 payload = loremIpsum2
+
                 message = GenericMessage(header, payload) 
                 evt = Event(self, EventTypes.MFRT, message)
                 self.send_down(evt)
-
 
     def on_startgpsreq(self, eventobj: Event):
         #print("on_startgpsreq")
