@@ -45,8 +45,8 @@ class GPSHandlerApp(GenericModel):
         #self.myLocation[1] = random.random() * 180 - 90
         #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
 
-    def gpsLocator(nodeNumber):
-        self.myLocation = nodeGPSLocations[nodeNumber]
+    def gpsLocator():
+        self.myLocation = nodeGPSLocations[int(self.componentinstancenumber)]
 
     def on_message_from_peer(self, eventobj: Event):
         #print("gps: from peer")
@@ -60,7 +60,7 @@ class GPSHandlerApp(GenericModel):
 
         #self.myLocation[0] = random.random() * 100 - 50
         #self.myLocation[1] = random.random() * 100 - 50
-        self.gpsLocator(self.componentinstancenumber)
+        self.gpsLocator()
         #print(f"My Location {str(self.myLocation[0])} , {str(self.myLocation[1])}")
         if eventobj.eventcontent.header.messagetype is CommunicatorAppMessageTypes.ISLOCATION: 
             #print("gps: from peer: islocation") 
