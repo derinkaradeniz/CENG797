@@ -94,8 +94,10 @@ class CommunicatorApp(GenericModel):
                 script_location = Path(__file__).absolute().parent
                 file_location = script_location / 'loremIpsum.txt'
                 fileT = file_location.open()
+                print("fileopen")
                 lorem2=fileT.read()
-                payload = lorem2
+                print("file read")
+                payload = loremIpsum2
                 message = GenericMessage(header, payload) 
                 evt = Event(self, EventTypes.MFRT, message)
                 self.send_down(evt)
