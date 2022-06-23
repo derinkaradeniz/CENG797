@@ -11,7 +11,7 @@ class TestAppMessageHeader(GenericMessageHeader):
     pass
 
 class TestAppEventTypes(Enum):    
-    STARTGPSREQ = "startreq"
+    STARTREQ = "startreq"
 
 class TestAppMessageTypes(Enum):
     BURST = "burst"
