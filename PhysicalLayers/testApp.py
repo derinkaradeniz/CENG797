@@ -39,7 +39,7 @@ class TestApp(GenericModel):
 
     def on_startreq(self, eventobj: Event):
         #print("on_startreq")
-        header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, eventobj.eventcontent.header.messageto)
+        header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0)
         payload = bytearray([1] * 64)
         message = GenericMessage(header, payload)
         evt = Event(self, EventTypes.MFRT, message)
