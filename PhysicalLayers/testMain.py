@@ -38,7 +38,7 @@ class AdHocNode(GenericModel):
         self.appl = TestApp("TestApp", componentinstancenumber, topology=topology)
         self.seg = MessageSegmentation("MessageSegmentation", componentinstancenumber, topology=topology)
         self.phy = UsrpB210OfdmFlexFramePhy("UsrpB210OfdmFlexFramePhy", componentinstancenumber, topology=topology, usrpconfig = sdrconfig)
-        self.mac = CsmaPlain("MacCsmaPPersistent", componentinstancenumber,  configurationparameters=macconfig, sdr=self.phy.sdrdev, topology=topology)
+        self.mac = CsmaPlain("CsmaPlain", componentinstancenumber,  configurationparameters=macconfig, sdr=self.phy.sdrdev, topology=topology)
 
         self.components.append(self.appl)
         self.components.append(self.mac)

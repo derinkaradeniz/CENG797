@@ -29,8 +29,10 @@ class TestApp(GenericModel):
 
     def on_message_from_bottom(self, eventobj: Event):
         #print("comm: from bottom")
-        print(f"Node {self.componentinstancenumber}: received {eventobj.eventcontent.header.sequencenumber} from Node {eventobj.eventcontent.header.messagefrom}.")
-        
+        if eventobj.eventcontent.header.messagefrom != self.componentinstancenumber:
+            print(f"Node {self.componentinstancenumber}: received {eventobj.eventcontent.header.sequencenumber} from Node {eventobj.eventcontent.header.messagefrom}.")
+        else:
+            pass
 
     def on_message_from_peer(self, eventobj: Event):        
         #print("comm: from peer")
@@ -47,4 +49,4 @@ class TestApp(GenericModel):
         for i in range(20):
             evt.eventcontent.header.sequencenumber = i + 1
             self.send_down(evt)
-            print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
+            #print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
