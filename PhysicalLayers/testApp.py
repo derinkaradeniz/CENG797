@@ -15,6 +15,7 @@ class TestAppEventTypes(Enum):
 
 class TestAppMessageTypes(Enum):
     BURST = "burst"
+    ACK = "ack"
 
 class TestApp(GenericModel):
     myLocation = [0]*2
@@ -30,7 +31,16 @@ class TestApp(GenericModel):
     def on_message_from_bottom(self, eventobj: Event):
         #print("comm: from bottom")
         if eventobj.eventcontent.header.messagefrom != self.componentinstancenumber:
-            print(f"Node {self.componentinstancenumber}: received {eventobj.eventcontent.header.sequencenumber} from Node {eventobj.eventcontent.header.messagefrom}.")
+
+            if eventobj.eventcontent.header.messagetype == TestAppMessageTypes.BURST:
+                print(f"Node {self.componentinstancenumber}: received {eventobj.eventcontent.header.sequencenumber} from Node {eventobj.eventcontent.header.messagefrom}.")
+                header = TestAppMessageHeader(TestAppMessageTypes.ACK, self.componentinstancenumber, 0,sequencenumber=eventobj.eventcontent.header.sequencenumber )
+                payload = bytearray(1)
+                message = GenericMessage(header, payload)
+                evt = Event(self, EventTypes.MFRT, message)
+                self.send_down(evt)
+            elif eventobj.eventcontent.header.messagetype == TestAppMessageTypes.ACK:
+                print(f"Node {self.componentinstancenumber}: ACK received {eventobj.eventcontent.header.sequencenumber} from Node {eventobj.eventcontent.header.messagefrom}.")
         else:
             pass
 
