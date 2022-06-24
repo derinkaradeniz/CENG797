@@ -74,6 +74,7 @@ def main():
             j = j + 1
         i = i + 1
     
+    time.sleep(3)
     print("END")
 
 if __name__ == "__main__":
