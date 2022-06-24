@@ -41,12 +41,25 @@ class TestApp(GenericModel):
 
     def on_startreq(self, eventobj: Event):
         #print("on_startreq")
+        #header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0)
+        #payload = bytearray([1] * 64)
+        #message = GenericMessage(header, payload)
+        #evt = Event(self, EventTypes.MFRT, message)
+
+        #for i in range(20):
+        #    evt.eventcontent.header.sequencenumber = i + 1
+        #    self.send_down(evt)
+        #    print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
+
         header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0)
         payload = bytearray([1] * 64)
         message = GenericMessage(header, payload)
         evt = Event(self, EventTypes.MFRT, message)
 
         for i in range(20):
-            evt.eventcontent.header.sequencenumber = i + 1
+            header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= i + 1)
+            payload = bytearray([1] * 64)
+            message = GenericMessage(header, payload)
+            evt = Event(self, EventTypes.MFRT, message)
             self.send_down(evt)
-            print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
+            #print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
