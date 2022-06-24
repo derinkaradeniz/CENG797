@@ -61,7 +61,8 @@ def main():
     print("main")
     topo = Topology()
     topo.construct_winslab_topology_without_channels(4, AdHocNode)
-    topo.start()    
+    topo.start()   
+    time.sleep(1) 
 
     i = 0
     while(i < 1):
@@ -73,6 +74,9 @@ def main():
         #        print(f"Call {j} ")
         #        time.sleep(1)
         #    j = j + 1
+
+        topo.nodes[2].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
+        time.sleep(0.01)
 
         for k in range(1000):
             topo.nodes[0].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
