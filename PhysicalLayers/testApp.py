@@ -49,4 +49,4 @@ class TestApp(GenericModel):
         for i in range(20):
             evt.eventcontent.header.sequencenumber = i + 1
             self.send_down(evt)
-            #print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
+            print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
