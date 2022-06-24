@@ -68,7 +68,7 @@ def main():
         j = 0
         while(j < 4):
             #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
-            if j not 1:
+            if j is not 1:
                 topo.nodes[j].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
                 time.sleep(1)
             j = j + 1
