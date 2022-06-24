@@ -70,7 +70,7 @@ def main():
             #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
             if j != 1:
                 topo.nodes[j].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
-                print(f"Call {i} ")
+                print(f"Call {j} ")
                 time.sleep(1)
             j = j + 1
         i = i + 1
