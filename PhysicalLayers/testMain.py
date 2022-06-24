@@ -64,7 +64,7 @@ def main():
     topo.start()    
 
     i = 0
-    while(i < 5):
+    while(i < 1):
         j = 0
         #while(j < 4):
         #    #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
@@ -74,7 +74,7 @@ def main():
         #        time.sleep(1)
         #    j = j + 1
 
-        for k in range(100):
+        for k in range(1000):
             topo.nodes[0].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
         time.sleep(10)
         #topo.nodes[2].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
