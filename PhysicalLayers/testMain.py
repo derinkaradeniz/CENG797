@@ -66,13 +66,19 @@ def main():
     i = 0
     while(i < 5):
         j = 0
-        while(j < 4):
-            #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
-            if j != 1 or j!= 3:
-                topo.nodes[j].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
-                print(f"Call {j} ")
-                time.sleep(1)
-            j = j + 1
+        #while(j < 4):
+        #    #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
+        #    if j != 1 or j!= 3:
+        #        topo.nodes[j].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
+        #        print(f"Call {j} ")
+        #        time.sleep(1)
+        #    j = j + 1
+
+        topo.nodes[0].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
+        time.sleep(1)
+        topo.nodes[2].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
+        time.sleep(1)
+
         i = i + 1
     
     time.sleep(3)
