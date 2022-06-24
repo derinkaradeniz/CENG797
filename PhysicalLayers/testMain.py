@@ -68,7 +68,7 @@ def main():
         j = 0
         while(j < 4):
             #topo.nodes[3].appl.send_self(Event(topo.nodes[0], UsrpApplicationLayerEventTypes.STARTBROADCAST, None))
-            topo.nodes[j].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
+            topo.nodes[1].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
             time.sleep(2)
             j = j + 1
         i = i + 1
