@@ -58,7 +58,7 @@ class TestApp(GenericModel):
 
         for i in range(100):
             header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= i + 1)
-            payload = bytearray([1] * 512)
+            payload = bytearray([1] * 64)
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRT, message)
             self.send_down(evt)
