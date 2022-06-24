@@ -32,7 +32,7 @@ class CsmaPlain(GenericMac):
                     logger.critical(f"MacCsmaPPersistent handle_frame exception {e}")
             else:
                 self.retrialcnt = self.retrialcnt + 1
-                print(f"retrial: {self.retrialcnt}")
+                print(f"{self.componentinstancenumber}: retrial: {self.retrialcnt}")
                 rand = random.random()
                 backoffCount = math.ceil(rand*(2*self.retrialcnt-1))
                 time.sleep(backoffCount*0.001)
