@@ -56,7 +56,7 @@ class TestApp(GenericModel):
         message = GenericMessage(header, payload)
         evt = Event(self, EventTypes.MFRT, message)
 
-        for i in range(20):
+        for i in range(100):
             header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= i + 1)
             payload = bytearray([1] * 512)
             message = GenericMessage(header, payload)
