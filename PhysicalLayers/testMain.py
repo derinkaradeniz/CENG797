@@ -78,8 +78,17 @@ def main():
         topo.nodes[2].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
         time.sleep(0.01)
 
+        seqCount = 0
+        payload = bytearray([1] * 64)
+
         for k in range(1000):
-            topo.nodes[0].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
+
+            seqCount = self.seqCount + 1
+            header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= self.seqCount)
+            message = GenericMessage(header, payload)
+            evt = Event(self, EventTypes.MFRT, message)
+            topo.nodes[0].appl.send_down(evt)
+            #topo.nodes[0].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
             time.sleep(0.01)
         time.sleep(20)
         #topo.nodes[2].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
