@@ -83,8 +83,8 @@ def main():
 
         for k in range(1000):
 
-            seqCount = self.seqCount + 1
-            header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= self.seqCount)
+            seqCount = seqCount + 1
+            header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= seqCount)
             message = GenericMessage(header, payload)
             evt = Event(self, EventTypes.MFRT, message)
             topo.nodes[0].appl.send_down(evt)
