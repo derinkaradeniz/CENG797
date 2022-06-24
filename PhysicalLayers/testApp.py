@@ -19,6 +19,7 @@ class TestAppMessageTypes(Enum):
 
 class TestApp(GenericModel):
     myLocation = [0]*2
+    seqCount = 0
     def on_init(self, eventobj: Event):
         #print("comm: on init")
         self.counter = 0       
@@ -61,15 +62,18 @@ class TestApp(GenericModel):
         #    self.send_down(evt)
         #    print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
 
-        header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0)
+        #for i in range(100):
+        #    header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= i + 1)
+        #    payload = bytearray([1] * 64)
+        #    message = GenericMessage(header, payload)
+        #    evt = Event(self, EventTypes.MFRT, message)
+        #    self.send_down(evt)
+        #    #print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
+
+        self.seqCount = self.seqCount + 1
+        header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= self.seqCount)
         payload = bytearray([1] * 64)
         message = GenericMessage(header, payload)
         evt = Event(self, EventTypes.MFRT, message)
-
-        for i in range(100):
-            header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= i + 1)
-            payload = bytearray([1] * 64)
-            message = GenericMessage(header, payload)
-            evt = Event(self, EventTypes.MFRT, message)
-            self.send_down(evt)
-            #print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
+        self.send_down(evt)
+        #print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
