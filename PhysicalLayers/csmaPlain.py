@@ -35,7 +35,7 @@ class CsmaPlain(GenericMac):
                 print(f"{self.componentinstancenumber}: retrial: {self.retrialcnt}")
                 rand = random.random()
                 backoffCount = math.ceil(rand*(2*self.retrialcnt-1))
-                time.sleep(backoffCount*0.001)
+                time.sleep(backoffCount*0.002)
         else:
             pass
         time.sleep(0.00001)
