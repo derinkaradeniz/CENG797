@@ -76,7 +76,7 @@ def main():
 
         for k in range(1000):
             topo.nodes[0].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
-        time.sleep(10)
+        time.sleep(60)
         #topo.nodes[2].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
         #time.sleep(1)
 
