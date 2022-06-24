@@ -89,7 +89,7 @@ def main():
             evt = Event(topo.nodes[0], EventTypes.MFRT, message)
             topo.nodes[0].appl.send_down(evt)
             #topo.nodes[0].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
-            time.sleep(0.01)
+            time.sleep(0.1)
         time.sleep(20)
         #topo.nodes[2].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
         #time.sleep(1)
