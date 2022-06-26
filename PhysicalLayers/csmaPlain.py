@@ -30,7 +30,7 @@ class CsmaPlain(GenericMac):
                     self.retrialcnt = 0
                 except Exception as e:
                     logger.critical(f"MacCsmaPPersistent handle_frame exception {e}")
-            elif self.retrialcnt > -1:
+            elif self.retrialcnt < 6:
                 self.retrialcnt = self.retrialcnt + 1
                 rand = random.random()
                 backoffCount = math.ceil(rand*(math.pow(2,self.retrialcnt)))
