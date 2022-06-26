@@ -15,6 +15,7 @@ from gpsHandler import *
 from communicator import *
 from testApp import *
 import logging
+import threading
 
 macconfig = CsmaPlainConfigurationParameters(-70)
 sdrconfig = SDRConfiguration(freq =915000000.0, bandwidth = 2000000, chan = 0, hw_tx_gain = 70, hw_rx_gain = 20, sw_tx_gain = -12.0)
