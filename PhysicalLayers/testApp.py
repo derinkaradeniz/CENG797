@@ -31,11 +31,10 @@ class TestApp(GenericModel):
 
     def on_message_from_bottom(self, eventobj: Event):
         #print("comm: from bottom")
-        if eventobj.eventcontent.header.messagefrom != self.componentinstancenumber:
-
+        if (eventobj.eventcontent.header.messagefrom != self.componentinstancenumber) and (eventobj.eventcontent.header.messageto == self.componentinstancenumber):
             if eventobj.eventcontent.header.messagetype == TestAppMessageTypes.BURST:
                 print(f"Node {self.componentinstancenumber}: received {eventobj.eventcontent.header.sequencenumber} from Node {eventobj.eventcontent.header.messagefrom}.")
-                header = TestAppMessageHeader(TestAppMessageTypes.ACK, self.componentinstancenumber, 0,sequencenumber=eventobj.eventcontent.header.sequencenumber )
+                header = TestAppMessageHeader(TestAppMessageTypes.ACK, self.componentinstancenumber, eventobj.eventcontent.header.messagefrom, sequencenumber=eventobj.eventcontent.header.sequencenumber )
                 payload = bytearray(1)
                 message = GenericMessage(header, payload)
                 evt = Event(self, EventTypes.MFRT, message)
@@ -71,7 +70,7 @@ class TestApp(GenericModel):
         #    #print(f"Sent message seq: {evt.eventcontent.header.sequencenumber}")
 
         self.seqCount = self.seqCount + 1
-        header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 0,sequencenumber= self.seqCount)
+        header = TestAppMessageHeader(TestAppMessageTypes.BURST, self.componentinstancenumber, 2,sequencenumber= self.seqCount)
         payload = bytearray([1] * 64)
         message = GenericMessage(header, payload)
         evt = Event(self, EventTypes.MFRT, message)
