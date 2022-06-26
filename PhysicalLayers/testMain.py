@@ -76,8 +76,8 @@ def main():
         #        time.sleep(1)
         #    j = j + 1
 
-        topo.nodes[2].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
-        time.sleep(0.01)
+        #topo.nodes[2].appl.send_self(Event(topo.nodes[0], TestAppEventTypes.STARTREQ, None))
+        time.sleep(10)
 
         seqCount = 0
         payload = bytearray([1] * 64)
@@ -98,7 +98,7 @@ def main():
 
         i = i + 1
     
-    time.sleep(3)
+    #time.sleep(3)
     print("END")
 
 if __name__ == "__main__":
