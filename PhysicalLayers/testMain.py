@@ -82,7 +82,7 @@ def main():
         seqCount = 0
         payload = bytearray([1] * 64)
 
-        for k in range(200):
+        for k in range(100):
 
             seqCount = seqCount + 1
             header = TestAppMessageHeader(TestAppMessageTypes.BURST, 0, 2,sequencenumber= seqCount)
