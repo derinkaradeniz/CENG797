@@ -36,7 +36,7 @@ class CsmaPlain(GenericMac):
                 rand = random.random()
                 backoffCount = math.ceil(rand*(math.pow(2,self.retrialcnt)))
                 print(f"{self.componentinstancenumber}: retrial: {self.retrialcnt}: {backoffCount} ")
-                time.sleep(backoffCount*0.01)
+                time.sleep(backoffCount*0.001)
             else:
                 eventobj = self.framequeue.get()
         else:
